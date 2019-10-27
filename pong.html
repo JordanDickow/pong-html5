@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- New things -->
+<!-- getContext() object method takes in a parameter to determine what kind of objects you want to render to the page -->
+<!-- 2d objects = get getContext('2d')-->
+<!-- setInterval() evaluates a function in a given time (set in milliseconds) -->
+    <!-- Steps -->
+        <!-- Game Board -->
+            <!-- Used canvas tag to create conrtainer for game level with size classes. -->
+            <!-- Created variables to keep track of attributes in game -->
+            <!-- told page to run 'Hello World' with window.onload function -->
+            <!-- Change characristics  of tag by getting the id -->
+            <!-- established what objects I want to render with getContext() -->
+            <!-- Left Paddle -->
+            <!-- Copy pasta'd fill style fill rect methods to create a left paddle. Changed color to red. -->
+    <title> Jordan's Pong Game</title>
+    </head>
+    <body>
+
+        <canvas id="gameCanvas" width="800" height="600">
+        <script>
+
+            let  canvas
+            let canvasContext
+            let ballX = 50
+            window.onload = function() {
+                console.log('hello world')
+                let framesPerSecond = 30
+                setInterval( function(){
+                    moveEverything()
+                    drawEverything()
+                } , 1000/framesPerSecond)
+            }
+
+            function moveEverything() {
+                            ballX += 5
+            }
+
+            function drawEverything() {
+
+
+                // console.log(ballX)
+            canvas = document.getElementById('gameCanvas')
+            canvasContext = canvas.getContext('2d')
+            canvasContext.fillStyle = 'black'
+            canvasContext.fillRect(0,0,canvas.width,canvas.height)
+
+
+        canvasContext.fillStyle = 'white'
+        canvasContext.fillRect(30,100,10,100)
+
+            canvasContext.fillStyle = 'red'
+            canvasContext.fillRect(ballX,100,10,10)
+
+        }
+        </script>
+        </body>
+</html>
