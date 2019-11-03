@@ -28,6 +28,22 @@
             var ballSpeedX = 10
             var ballSpeedY = 5
 
+            var player1Y = 250
+            var paddle2Y = 250
+            const PADDLE_THICKNESS = 10
+            const PADDLE_HEIGHT = 100
+
+            function calculateMousePos(evt) {
+                var rect = canvas.getBoundingClientRect()
+                var root = document.documentElement
+                var mouseX =  evt.clientX - rect.left - root.scrollLeft
+                var mouseY = evt.clientY - rect.top - root.scrollTop
+                return {
+                    x:mouseX,
+                    y:mouseY
+                }
+            }
+
         window.onload = function() {
             // get id of canvas tag
         canvas = document.getElementById('gameCanvas')
@@ -39,13 +55,31 @@
                     moveEverything()
                     drawEverything()
                 } , 1000/framesPerSecond)
+
+                canvas.addEventListener('mousemove',
+                        function(evt){
+                            var mousePos = calculateMousePos(evt)
+                            paddle1Y = mousePos.y - (PADDLE_HEIGHT/2)
+            })
+            }
+
+            function ballReset() {
+                ballSpeedX = -ballSpeedX
+                ballX = canvas.width/2
+                ballY = canvas.height/2
             }
 
             function moveEverything() {
                             ballX =  ballX + ballSpeedX
                             ballY =  ballY + ballSpeedY
+
                             if(ballX < 0) {
-                            ballSpeedX = -ballSpeedX
+                                if(ballY > paddle1Y && ballY < paddle1Y+PADDLE_HEIGHT) {
+                                    ballSpeedX = -ballSpeedX
+                                } else {
+                                    
+                                        ballReset()
+                                }
                             }
                             if(ballX > canvas.width) {
                                 ballSpeedX = -ballSpeedX
@@ -62,9 +96,9 @@
             function drawEverything() {
         colorRect(0,0,canvas.width,canvas.height,'black')
         //draws paddle
-        colorRect(50,200,10,110,'white')
+        colorRect(25,paddle1Y,10,PADDLE_HEIGHT,'white')
         // draws second paddle
-        colorRect(700,200,10,110,'white')
+        colorRect(780,100,10,110,'white')
         //  draws  ball
         drawCircle(ballX, ballY, 7, 'white')
 
