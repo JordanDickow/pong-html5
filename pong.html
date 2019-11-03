@@ -77,12 +77,13 @@
                                 if(ballY > paddle1Y && ballY < paddle1Y+PADDLE_HEIGHT) {
                                     ballSpeedX = -ballSpeedX
                                 } else {
-                                    
+
                                         ballReset()
                                 }
                             }
                             if(ballX > canvas.width) {
-                                ballSpeedX = -ballSpeedX
+                                ballReset()
+
                     }
 
                     if(ballY < 0) {
@@ -96,7 +97,7 @@
             function drawEverything() {
         colorRect(0,0,canvas.width,canvas.height,'black')
         //draws paddle
-        colorRect(25,paddle1Y,10,PADDLE_HEIGHT,'white')
+        colorRect(0,paddle1Y,10,PADDLE_HEIGHT,'white')
         // draws second paddle
         colorRect(780,100,10,110,'white')
         //  draws  ball
