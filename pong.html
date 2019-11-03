@@ -21,12 +21,20 @@
         <canvas id="gameCanvas" width="800" height="600">
         <script>
 
-            let  canvas
-            let canvasContext
-            let ballX = 50
-            window.onload = function() {
-                console.log('hello world')
-                let framesPerSecond = 30
+            var  canvas
+            var canvasContext
+            var ballX = 50
+            var ballY = 50
+            var ballSpeedX = 10
+            var ballSpeedY = 5
+
+        window.onload = function() {
+            // get id of canvas tag
+        canvas = document.getElementById('gameCanvas')
+        // draws color of canvas
+            canvasContext = canvas.getContext('2d')
+
+                var framesPerSecond = 30;
                 setInterval( function(){
                     moveEverything()
                     drawEverything()
@@ -34,26 +42,44 @@
             }
 
             function moveEverything() {
-                            ballX += 5
+                            ballX =  ballX + ballSpeedX
+                            ballY =  ballY + ballSpeedY
+                            if(ballX < 0) {
+                            ballSpeedX = -ballSpeedX
+                            }
+                            if(ballX > canvas.width) {
+                                ballSpeedX = -ballSpeedX
+                    }
+
+                    if(ballY < 0) {
+                    ballSpeedY = -ballSpeedY
+                    }
+                    if(ballY > canvas.height) {
+                        ballSpeedY = -ballSpeedY
+            }
             }
 
             function drawEverything() {
+        colorRect(0,0,canvas.width,canvas.height,'black')
+        //draws paddle
+        colorRect(50,200,10,110,'white')
+        // draws second paddle
+        colorRect(700,200,10,110,'white')
+        //  draws  ball
+        drawCircle(ballX, ballY, 7, 'white')
 
-
-                // console.log(ballX)
-            canvas = document.getElementById('gameCanvas')
-            canvasContext = canvas.getContext('2d')
-            canvasContext.fillStyle = 'black'
-            canvasContext.fillRect(0,0,canvas.width,canvas.height)
-
-
-        canvasContext.fillStyle = 'white'
-        canvasContext.fillRect(30,100,10,100)
-
-            canvasContext.fillStyle = 'red'
-            canvasContext.fillRect(ballX,100,10,10)
 
         }
+        function drawCircle(centerX, centerY, radius, drawColor) {
+            canvasContext.fillStyle = drawColor
+            canvasContext.beginPath()
+            canvasContext.arc(centerX, centerY, radius, 0, Math.PI*2, true)
+            canvasContext.fill();
+        }
+        function colorRect(leftX,topY,width,height, drawColor) {
+                canvasContext.fillStyle = drawColor
+                canvasContext.fillRect(leftX,topY,width,height)
+}
         </script>
         </body>
 </html>
